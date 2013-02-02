@@ -5,10 +5,36 @@
     android:layout_height="fill_parent"
     >
   <FrameLayout
-      android:id="@+id/camera_preview"
+      android:id="@+id/camera_frame_layout"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
-      android:layout_weight="1"
-    />
+      android:layout_weight="1" >
+
+    <!--<com.example.aroundtheblock.PhotoOverlay-->
+        <!--android:id="@+id/photo_overlay"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
+
+    <!--<LinearLayout android:id="@+id/hidecontainer"-->
+        <!--android:orientation="vertical"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+      <!--<Button android:id="@+id/hideme1"-->
+          <!--android:layout_width="wrap_content"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:layout_gravity="center"-->
+          <!--/>-->
+
+      <!--<Button android:id="@+id/hideme2"-->
+          <!--android:layout_width="wrap_content"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:layout_gravity="center"-->
+          <!--/>-->
+
+    <!--</LinearLayout>-->
+
+  </FrameLayout>
 
 </LinearLayout>
