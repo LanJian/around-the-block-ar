@@ -62,6 +62,7 @@ public class PhotoOverlay extends View {
 
   @Override
   public void onDraw(Canvas canvas) {
+    //System.err.println("draw: " + mPhotos.size());
     super.onDraw(canvas); 
 
     for (Photo photo: mPhotos) {

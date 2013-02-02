@@ -82,8 +82,8 @@ public class MainActivity extends Activity {
           System.err.println(location.getLatitude() + ", "
               + location.getLongitude());
           mLoc = location;
-          String url = String.format("http://aroundtheblock.kanaflash.com/ar_photos?latitude=%f&longitude=%f",
-              mLoc.getLatitude(), mLoc.getLongitude());
+          String url = String.format("http://aroundtheblock.kanaflash.com/ar_photos?latitude=%f&longitude=%f&limit=%d",
+              mLoc.getLatitude(), mLoc.getLongitude(), 15);
           new RequestTask(mOverlay).execute(url);
         }
       }

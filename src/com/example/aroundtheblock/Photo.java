@@ -6,17 +6,24 @@ import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.hardware.Camera;
 import android.location.Location;
 import android.location.LocationManager;
 
 
-class Photo {
+public class Photo {
+
+  public static final int THUMB_MIN_SIZE = 100;
+  public static final int THUMB_MAX_SIZE = 400;
+
   private String mUrl;
   private Location mLocation;
+  private float mDistance;
+  private int mSize;
   private boolean mVisible;
 
   private PhotoOverlay mOverlay;
@@ -38,6 +45,9 @@ class Photo {
     mXOffset = 0;
     mYOffset = 0;
 
+    mDistance = 0;
+    mSize = 0;
+
     mWidth = mOverlay.mWidth;
     mHeight = mOverlay.mHeight;
 
@@ -50,17 +60,27 @@ class Photo {
       return;
 
     Paint paint = new Paint();
+    paint.setColor(Color.WHITE);
+
+    int left = (int)(mXOffset + mWidth/2.0 - mSize/2.0);
+    int right = left + mSize;
+    int top = (int)(mYOffset + mHeight/2.0 - mSize/2.0);
+    int bottom = top + mSize;
+    int border = 10;
 
 
     //Bitmap kangoo = BitmapFactory.decodeResource(mOverlay.getResources(),
         //R.drawable.kangoo);
-    if (mBmp != null)
-      canvas.drawBitmap(mBmp, (int)(mXOffset + mWidth/2.0),
-          (int)(mYOffset + mHeight/2.0), null);
+    if (mBmp != null) {
+      canvas.drawRect(new Rect(left-border, top-border, right+border, bottom+border), paint);
+      canvas.drawBitmap(mBmp, (int)(mXOffset + mWidth/2.0 - mSize/2.0),
+          (int)(mYOffset + mHeight/2.0 - mSize/2.0), null);
+    }
   }
 
   public void setBmp(Bitmap bmp) {
-    mBmp = bmp;
+    Bitmap tmp = Bitmap.createScaledBitmap(bmp, mSize, mSize, false);
+    mBmp = tmp;
   }
 
   public void update(Camera camera, float[] R, Location m) {
@@ -71,6 +91,11 @@ class Photo {
 
   private void updateVisibility(Camera camera, float[] R, Location m, Location p) {
     float fov = camera.getParameters().getHorizontalViewAngle();
+
+    mDistance = m.distanceTo(p);
+    mSize = (int)((2000 - mDistance)*(THUMB_MAX_SIZE-THUMB_MIN_SIZE)/2000 + 100);
+    mSize = Math.max(mSize, 100);
+    mSize = Math.min(mSize, 400);
 
     // apply reverse rotation to vector p-m
     //Point4f pm = new Point4f((float)m.getLongitude(), 0, (float)m.getLatitude(), 1);
