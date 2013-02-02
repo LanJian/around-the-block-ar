@@ -164,8 +164,8 @@ public class Photo {
 
     mYOffset = yOffset;
 
-    if (thetaDeg > -fov/2 && thetaDeg < fov/2 &&
-        vertThetaDeg > -vertFov/2 && vertThetaDeg < vertFov/2)
+    if (thetaDeg > -fov/2-10 && thetaDeg < fov/2+10 &&
+        vertThetaDeg > -vertFov/2-10 && vertThetaDeg < vertFov/2+10)
     {
       //System.err.println("visible");
       mVisible = true;

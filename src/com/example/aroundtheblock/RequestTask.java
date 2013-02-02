@@ -64,7 +64,6 @@ class RequestTask extends AsyncTask<String, String, String>{
       JSONObject object = (JSONObject) new JSONTokener(result).nextValue();
       JSONObject photos = object.getJSONObject("photos");
       Iterator<String> keys = photos.keys();
-      //for (int i=0; i<3; i++) {
       while (keys.hasNext()) {
         String k = keys.next();
         JSONObject p = photos.getJSONObject(k);
