@@ -77,10 +77,10 @@ public class MainActivity extends Activity {
     LocationListener locationListener = new LocationListener() {
       public void onLocationChanged(Location location) {
         // Called when a new location is found by the network location provider.
-        System.err.println(location.getLatitude() + ", "
-            + location.getLongitude());
         if (location.distanceTo(mLoc) > 100)
         {
+          System.err.println(location.getLatitude() + ", "
+              + location.getLongitude());
           mLoc = location;
           String url = String.format("http://aroundtheblock.kanaflash.com/ar_photos?latitude=%f&longitude=%f",
               mLoc.getLatitude(), mLoc.getLongitude());
