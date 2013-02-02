@@ -84,7 +84,7 @@ public class MainActivity extends Activity {
           mLoc = location;
           String url = String.format("http://aroundtheblock.kanaflash.com/ar_photos?latitude=%f&longitude=%f",
               mLoc.getLatitude(), mLoc.getLongitude());
-          new RequestTask().execute(url);
+          new RequestTask(mOverlay).execute(url);
         }
       }
 

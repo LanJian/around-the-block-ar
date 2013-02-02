@@ -20,6 +20,12 @@ import android.os.AsyncTask;
 
 class RequestTask extends AsyncTask<String, String, String>{
 
+  private PhotoOverlay mOverlay;
+
+  public RequestTask(PhotoOverlay o) {
+    mOverlay = o;
+  }
+
   @Override
   protected String doInBackground(String... uri) {
     HttpClient httpclient = new DefaultHttpClient();
@@ -53,16 +59,24 @@ class RequestTask extends AsyncTask<String, String, String>{
     //System.err.println("result: " + result);
 
     try {
+      mOverlay.clearPhotos();
+
       JSONObject object = (JSONObject) new JSONTokener(result).nextValue();
       JSONObject photos = object.getJSONObject("photos");
       Iterator<String> keys = photos.keys();
+      //for (int i=0; i<3; i++) {
       while (keys.hasNext()) {
         String k = keys.next();
         JSONObject p = photos.getJSONObject(k);
+        double lat = p.getJSONObject("location").getDouble("latitude");
+        double lon = p.getJSONObject("location").getDouble("longitude");
         String url = p.getString("url");
+        Photo photo = new Photo(mOverlay, lat, lon, url);
+        mOverlay.addPhoto(photo);
         System.err.println(url);
       }
     } catch (JSONException e) {
+      e.printStackTrace();
     }
   }
 }
