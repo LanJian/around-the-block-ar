@@ -10,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.hardware.Camera;
 import android.location.Location;
 import android.location.LocationManager;
@@ -72,7 +73,17 @@ public class Photo {
     //Bitmap kangoo = BitmapFactory.decodeResource(mOverlay.getResources(),
         //R.drawable.kangoo);
     if (mBmp != null) {
-      canvas.drawRect(new Rect(left-border, top-border, right+border, bottom+border), paint);
+      canvas.drawRect(new Rect(left-border, top-border-30, right+border, bottom+border), paint);
+      paint.setColor(Color.BLACK);
+      paint.setTypeface(Typeface.create("Cambria", Typeface.NORMAL));
+      //paint.setStyle(Paint.Style.FILL_AND_STROKE);
+      //paint.setStrokeWidth(5);
+      paint.setTextSize(30);
+      canvas.drawText((int)mDistance + "m", left+(mSize/2)-40, top-border, paint);
+      //paint.setStyle(Paint.Style.FILL);
+      //paint.setColor(Color.rgb(225,40,90));
+      //paint.setStrokeWidth(1);
+      //canvas.drawText((int)mDistance + "m", left+(mSize/2)-40, top-border, paint);
       canvas.drawBitmap(mBmp, (int)(mXOffset + mWidth/2.0 - mSize/2.0),
           (int)(mYOffset + mHeight/2.0 - mSize/2.0), null);
     }
